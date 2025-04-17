@@ -81,7 +81,7 @@ The following dependencies are used in this project:
 
 To install all dependencies, run:
 
-````bash
+```bash
     npm install luxon
     npm install next
     npm install node-appwrite
