@@ -156,6 +156,20 @@ To learn more about the technologies used in this project, check out the followi
 - [Appwrite Documentation](https://appwrite.io/docs) - Learn about Appwrite's features and API.
 - [Vercel Documentation](https://vercel.com/docs) - Learn how to deploy your Next.js app.
 
+## Updates
+
+### First Update: Admin Panel and Enhanced Features
+- **Admin Panel**: Added an admin panel where admins can:
+  - View all bookings made by users.
+  - View all users who have added rooms.
+- **Admin Authentication**: Admins are identified by their email (`admin.bookit@gmail.com`).
+- **Improved Header**: The header dynamically updates to show the "Admin Panel" button for admins.
+
+### How to Use
+1. Log in as an admin using the email `admin.bookit@gmail.com`.
+2. Navigate to the "Admin Panel" to view all bookings and users.
+
+
 ## Contributing
 
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
