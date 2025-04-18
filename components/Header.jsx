@@ -5,13 +5,19 @@ import {useAuth} from "@/context/authContext";
 import Image from "next/image";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import {FaBuilding, FaSignInAlt, FaSignOutAlt, FaUser} from "react-icons/fa";
+import {
+    FaBuilding,
+    FaSignInAlt,
+    FaSignOutAlt,
+    FaUser,
+    FaUserShield,
+} from "react-icons/fa";
 import {toast} from "react-toastify";
 
 const Header = () => {
     const router = useRouter();
 
-    const {isAuthenticated, setIsAuthenticated} = useAuth();
+    const {isAuthenticated, isAdmin, setIsAuthenticated} = useAuth();
 
     const handleLogout = async () => {
         const {success, error} = await destroySession();
@@ -60,6 +66,16 @@ const Header = () => {
                                         >
                                             Add Room
                                         </Link>
+                                        {/* Admin Panel Link */}
+                                        {isAdmin && (
+                                            <Link
+                                                href="/admin"
+                                                className="rounded-md px-3 py-2 text-sm font-medium text-gray-800 hover:bg-gray-700 hover:text-white"
+                                            >
+                                                <FaUserShield className="inline mr-1" />{" "}
+                                                Admin Panel
+                                            </Link>
+                                        )}
                                     </>
                                 )}
                             </div>
@@ -132,6 +148,16 @@ const Header = () => {
                             >
                                 Add Room
                             </Link>
+                            {/* Admin Panel Link */}
+                            {isAdmin && (
+                                <Link
+                                    href="/admin"
+                                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:bg-gray-700 hover:text-white"
+                                >
+                                    <FaUserShield className="inline mr-1" />{" "}
+                                    Admin Panel
+                                </Link>
+                            )}
                         </>
                     )}
                 </div>

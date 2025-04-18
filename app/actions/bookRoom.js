@@ -57,6 +57,13 @@ async function bookRoom(previousState, formData) {
             room_id: roomId,
         };
 
+        //check the room id
+        if (!roomId || typeof roomId !== "string" || roomId.length > 36) {
+            return {
+                error: "Invalid room ID",
+            };
+        }
+
         // Create booking
         const newBooking = await databases.createDocument(
             process.env.NEXT_PUBLIC_APPWRITE_DATABASE,

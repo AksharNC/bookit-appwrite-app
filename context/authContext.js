@@ -1,28 +1,52 @@
+"use client";
+
+import {createContext, useContext, useState, useEffect} from "react";
 import checkAuth from "@/app/actions/checkAuth";
-import {createContext, useContext, useEffect, useState} from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [loading, setLoading] = useState(true); // Add loading state
 
     useEffect(() => {
-        const checkAuthentication = async () => {
-            const {isAuthenticated, user} = await checkAuth();
-            setIsAuthenticated(isAuthenticated);
-            setCurrentUser(user);
+        const fetchUser = async () => {
+            try {
+                const {user} = await checkAuth();
+                if (user) {
+                    setIsAuthenticated(true);
+                    setCurrentUser(user);
+                    setIsAdmin(user.email === "admin.bookit@gmail.com"); // Check if user is admin
+                } else {
+                    setIsAuthenticated(false);
+                    setCurrentUser(null);
+                    setIsAdmin(false);
+                }
+            } catch (error) {
+                console.error("Error fetching user:", error);
+                setIsAuthenticated(false);
+                setCurrentUser(null);
+                setIsAdmin(false);
+            } finally {
+                setLoading(false); // Set loading to false after fetching
+            }
         };
 
-        checkAuthentication();
+        fetchUser();
     }, []);
+
+
 
     return (
         <AuthContext.Provider
             value={{
                 isAuthenticated,
-                setIsAuthenticated,
                 currentUser,
+                isAdmin,
+                loading, // Expose loading state
+                setIsAuthenticated,
                 setCurrentUser,
             }}
         >
@@ -38,3 +62,4 @@ export const useAuth = () => {
     }
     return context;
 };
+
